@@ -1,0 +1,38 @@
+!ACCESS LIST VTY-LIMIT
+!R2
+
+!PC-C access to the R2 vty lines
+ip access-list standard R2-VTY-LIMIT
+permit host 172.16.2.5
+
+!Implements VTY-LIMIT 
+line vty 0 15
+access-class R2-VTY-LIMIT in
+exit
+
+!to restrict access from the internet
+ip access-list extended R2-SECURITY
+permit tcp host 64.100.1.7 host 209.165.202.131 eq ftp
+deny tcp any any eq ftp
+deny tcp any any eq 22
+permit ip any any
+
+!Implements SECURITY
+interface GigabitEthernet0/0/0
+ip access-group R2-SECURITY in
+ip nat outside
+
+
+
+
+!-------------------------------------------
+!S3
+
+!Allows PC-c to access S3
+ip access-list standard S3-VTY-LIMIT
+permit host 172.16.2.5
+
+!Implement S3-VTY-LIMIT
+line vty 0 15
+access-class S3-VTY-LIMIT in
+login

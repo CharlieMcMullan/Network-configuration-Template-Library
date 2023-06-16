@@ -1,0 +1,26 @@
+!Router
+end 
+copy running-config tftp
+192.168.1.5
+R1-Run-Config
+
+!Switch
+end 
+copy running-config tftp
+192.168.1.5
+S1-Run-Config
+
+
+!Use TFTP server to update/upgrade IOS software
+!S3
+copy tftp flash:
+209.165.202.131
+c2960-lanbasek9-mz.150-2.SE4.bin
+
+config t
+boot system flash:c2960-lanbasek9-mz.150-2.SE4.bin 
+exit
+
+copy running-config startup-config
+
+reload

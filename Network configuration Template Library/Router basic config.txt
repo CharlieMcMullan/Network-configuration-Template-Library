@@ -1,0 +1,39 @@
+hostname R2
+no ip domain-lookup
+
+enable secret cisco
+line console 0
+password cisco
+login
+exit
+line vty 0 4 
+password cisco
+login
+exit
+service password-encryption
+banner motd # Unauthorised access is prohibited #
+
+interface g0/0/0
+ip address 209.165.200.225 255.255.255.248
+no shutdown
+exit
+
+
+interface g0/0/1
+ip address 209.165.200.225 255.255.255.248
+no shutdown
+exit
+
+interface loopback1
+ip address 209.165.200.1 255.255.255.224
+no shutdown
+exit
+
+
+!To configure a default route from router to router
+! config on r1 or r2 and use the ip of the other
+!ip route 0.0.0.0 0.0.0.0 209.165.200.225
+
+exit 
+
+copy run start

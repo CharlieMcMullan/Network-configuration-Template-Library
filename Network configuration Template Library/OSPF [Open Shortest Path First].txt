@@ -1,0 +1,15 @@
+!Inital Config 
+router ospf 1
+router-id 0.0.0.1
+network 64.100.1.0 0.0.0.7 area 0
+network 198.51.100.0 0.0.0.3 area 0
+
+!Aditional Config
+router ospf 1
+passive-interface g0/0/1
+passive-interface g0/0/2
+auto-cost reference-bandwidth 1000
+exit
+interface g0/0/0
+ip ospf network point-to-point
+ip ospf hello-interval 30

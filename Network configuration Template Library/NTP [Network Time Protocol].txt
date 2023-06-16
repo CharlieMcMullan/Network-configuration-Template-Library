@@ -1,0 +1,12 @@
+!config ntp
+ntp server 192.168.33.14
+
+!backup
+end
+show flash
+!this is to check flash image name
+copy flash tftp
+!paste file name
+!EXAMPLE...
+! isr4300-universalk9.03.16.05.S.155-3.S5-ext.SPA.bin
+192.168.33.14 !enter sever address

@@ -1,0 +1,37 @@
+hostname R2
+no ip domain lookup 
+
+!Privilleged exec password
+enable secret ciscoenpass
+
+!Console Password
+line console 0
+password ciscoconpass
+login
+Exit
+
+
+!Password Encryption
+service password-encryption
+
+!Password Min Length Requirement
+security passwords min-length 10
+
+!Banner Message
+banner motd #Authorized Acess Only!#
+
+!Interfaces
+interface g0/0/0
+description connection to S1
+ip address 198.51.100.2 255.255.255.252
+no shutdown
+
+interface g0/0/1
+description connection to S1
+ip address 172.16.2.1 255.255.255.0
+no shutdown
+
+interface g0/1/2
+description connection to S1
+ip address 209.165.202.129 255.255.255.224
+no shutdown

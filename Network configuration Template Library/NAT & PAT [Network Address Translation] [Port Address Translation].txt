@@ -1,0 +1,26 @@
+!R1
+ip nat inside source static 192.168.1.5 64.100.1.7
+ interface GigabitEthernet0/0/0
+ ip nat outside
+ interface GigabitEthernet0/0/1
+ ip nat inside
+
+!R2
+ip nat pool IPNAT1 209.165.202.140 209.165.202.150 netmask 255.255.255.224
+ip nat inside source list 1 pool IPNAT1 overload
+ access-list 1 permit 172.16.2.0 0.0.0.15
+interface GigabitEthernet0/0/1
+ip nat inside
+
+!R3
+ip access-list standard R1-VTY-LIMIT
+permit host 192.168.1.5
+line vty 0 15
+access-class R1-VTY-LIMIT in
+
+!R4
+ip access-list standard S1-VTY-LIMIT
+permit host 192.168.1.5
+line vty 0 15
+access-class S1-VTY-LIMIT in
+
